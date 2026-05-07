@@ -1,0 +1,13 @@
+# This base image is several years old and full of CVEs
+FROM node:14.0.0
+
+WORKDIR /usr/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+# VULNERABILITY: Running as root
+USER root
+
+EXPOSE 3000
+CMD ["node", "server.js"]
